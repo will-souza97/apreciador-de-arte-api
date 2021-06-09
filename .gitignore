@@ -1,0 +1,7 @@
+.env
+/node_modules
+/dist
+/tmp
+/tmp/*
+!/tmp/.gitkeep
+
