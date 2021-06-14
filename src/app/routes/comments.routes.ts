@@ -4,10 +4,10 @@ import isAuthenticated from '../utils/middlewares/isAuthenticated';
 
 const commentRouter = Router();
 
-commentRouter.use(isAuthenticated);
-
 commentRouter.get('/:id', commentController.show);
 
-commentRouter.post('/:id', commentController.create);
+commentRouter.use(isAuthenticated);
+
+commentRouter.post('/', commentController.create);
 
 export default commentRouter;

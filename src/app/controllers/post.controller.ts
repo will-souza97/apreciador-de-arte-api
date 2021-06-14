@@ -9,9 +9,22 @@ class PostController {
     const postsRepository = getRepository(Post);
 
     try {
-      const posts = await postsRepository.find();
+      const posts = await postsRepository.find({
+        relations: ['user'],
+      });
 
-      return response.status(201).json({ posts });
+      const data = posts.map(({ id, image_url, user_id, likes, user }) => {
+        return {
+          id,
+          image_url,
+          user_id,
+          likes,
+          avatar_url: user.avatar,
+          name: user.name,
+        };
+      });
+
+      return response.status(201).json(data);
     } catch (error) {
       return response.status(error.statusCode).json({ Error: error.message });
     }
@@ -39,7 +52,7 @@ class PostController {
 
       const { post } = await createPost.execute({ user_id, filename });
 
-      return response.status(201).json(post);
+      return response.status(201).json({ post });
     } catch (error) {
       return response.status(error.statusCode).json({ Error: error.message });
     }

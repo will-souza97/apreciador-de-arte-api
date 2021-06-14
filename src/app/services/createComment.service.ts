@@ -26,10 +26,6 @@ class CreateCommentService {
       where: { id: user_id },
     });
 
-    if (!user) {
-      throw new AppError('User does not exists.');
-    }
-
     const postsRepository = getRepository(Post);
 
     const post = await postsRepository.findOne({

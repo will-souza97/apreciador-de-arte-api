@@ -6,6 +6,7 @@ import CreateCommentService from '../services/createComment.service';
 class CommentController {
   public async show(request: Request, response: Response) {
     const { id } = request.params;
+
     try {
       const commentRepository = getRepository(Comment);
 
@@ -18,8 +19,8 @@ class CommentController {
   }
 
   public async create(request: Request, response: Response) {
-    const { id: post_id } = request.params;
     const { id: user_id } = request.user;
+    const { id: post_id } = request.body;
     const { comment: comment_content } = request.body;
 
     try {
